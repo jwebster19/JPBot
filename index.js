@@ -4,20 +4,36 @@ const Discord = require("discord.js")
 //Requiring .env Configuration to Hide Token
 require("dotenv").config()
 
-//Bot Token from discord.com/developers/applications
-//const TOKEN = "OTQ1NTM0MjY2MjAzMzA4MDcy.YhRjaA.Ga0Gxaay5yXcTnLDue0Rkkwqze4"
-
 //Where the bot is listening
 const client = new Discord.Client({
     //discord.com/developers/docs/topics/gateway#list-of-intents
     intents: [
         "GUILDS",
-        "GUILD_MESSAGES"/*,
-        "GUILD_MEMBERS"*/
+        "GUILD_MESSAGES",
+        "GUILD_MEMBERS"
     ]
 })
 
-//Anonymous Function
+//Reaching to Folders
+let bot = {
+    client,
+    prefix: "n.",
+    owners: ["Jackson Webster#2638"]
+}
+
+client.commands = new Discord.Collection()
+client.events = new Discord.Collection()
+
+client.loadEvents = (bot,reload) => require("./handlers/events")(bot, reload)
+client.loadCommands = (bot, reload) => require("./handlers/events")(bot, reload)
+
+client.loadEvents(bot, false)
+client.loadCommands(bot, false)
+
+module.exports = bot
+
+/*
+//Login Function
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`)
 })
@@ -26,16 +42,10 @@ client.on("ready", () => {
 client.on("messageCreate", (message) => {
     //Responding to "Hi"
     if(message.content.toLowerCase() == "hi") {
-        message.reply(`Hello`/*<@${member.id}>*/)
+        message.reply(`Hello`)
     }
 })
-
-const welcomeChannelID = "936879578608181258"
-
-//Event Listener to Users Joining Server
-client.on("guildMemberAdd", (member) => {
-    member.guild.channels.cache.get((welcomeChannelID).send(`<@${member.id}> Welcome to the Server!`))
-})
+*/
 
 //client.login(TOKEN)
 client.login(process.env.TOKEN)
