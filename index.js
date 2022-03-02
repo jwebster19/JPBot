@@ -32,20 +32,5 @@ client.loadCommands(bot, false)
 
 module.exports = bot
 
-/*
-//Login Function
-client.on("ready", () => {
-    console.log(`Logged in as ${client.user.tag}`)
-})
-
-//Event Listener to Messages
-client.on("messageCreate", (message) => {
-    //Responding to "Hi"
-    if(message.content.toLowerCase() == "hi") {
-        message.reply(`Hello`)
-    }
-})
-*/
-
 //client.login(TOKEN)
 client.login(process.env.TOKEN)
